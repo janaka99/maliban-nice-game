@@ -79,15 +79,6 @@ export const generateImageAction = async (
       };
     }
 
-    const targetImage =
-      "https://res.cloudinary.com/janaka99/image/upload/v1732193009/IMG_9269_jlmvr4.jpg";
-
-    // TODO change the frame based to Gender
-
-    const trgetRes: ArrayBuffer = await axios.get(targetImage, {
-      responseType: "arraybuffer",
-    });
-
     const arrayBuffer = await image.arrayBuffer();
 
     // Convert ArrayBuffer to Blob
@@ -95,6 +86,7 @@ export const generateImageAction = async (
     // console.log(blob, targetBlob);
     // return;
     // Create FormData to pass binary images
+
     const formData = new FormData();
     const menImages = [
       path.join(process.cwd(), "public", "men1.jpeg"),
@@ -111,7 +103,6 @@ export const generateImageAction = async (
     ];
 
     let content = null;
-
     if (gender === "male") {
       content = menImages[Math.floor(Math.random() * menImages.length)];
     } else if (gender === "female") {
@@ -125,9 +116,12 @@ export const generateImageAction = async (
       };
     }
 
-    const targetBlob = new Blob([content], { type: "image/jpeg" });
-    const blob = new Blob([arrayBuffer], { type: image.type });
+    // Read the file content as a buffer
+    const fileBuffer = fs.readFileSync(content);
 
+    const targetBlob = new Blob([fileBuffer], { type: "image/jpeg" });
+    const blob = new Blob([arrayBuffer], { type: image.type });
+    console.log(targetBlob, blob);
     formData.append("target_image", targetBlob, "target_image.jpg");
     formData.append("swap_image", blob, "swap_image.jpg");
 
@@ -143,7 +137,7 @@ export const generateImageAction = async (
       return {
         type: "generateError",
         message: {
-          title: "Image generation error 2",
+          title: "Server Error",
         },
       };
     }

@@ -76,7 +76,7 @@ export const verifyOTP = async (values: z.infer<typeof otpSchema>) => {
             return {
               type: "otpSuccess",
               message: {
-                title: "OTP has been Verifief",
+                title: "OTP has been Verified",
               },
             };
           } catch (error) {

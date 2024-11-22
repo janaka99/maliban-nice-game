@@ -5,4 +5,5 @@ export const Config = {
   IMAGE_GEN_API: process.env.IMAGE_GEN_API,
   SMS160_PROJECT_ID: process.env.SMS160_PROJECT_ID,
   SMS160_API_KEY: process.env.SMS160_API_KEY,
+  API_PROJECT_NAME: process.env.API_PROJECT_NAME,
 };

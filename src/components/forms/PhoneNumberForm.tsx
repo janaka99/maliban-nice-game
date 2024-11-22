@@ -57,7 +57,7 @@ export default function PhoneNumberForm({ setCurrentStep }: Props) {
     if (!res) {
       toast({
         variant: "destructive",
-        description: "Something Went Wrong 3",
+        description: "Something Went Wrong",
       });
       return;
     }
@@ -68,8 +68,8 @@ export default function PhoneNumberForm({ setCurrentStep }: Props) {
         description: res.message
           ? res.message.title
             ? res.message.title
-            : "Something Went Wrong 1"
-          : "Something Went Wrong 2",
+            : "Something Went Wrong"
+          : "Something Went Wrong",
       });
     }
     if (!res.user) {
@@ -78,15 +78,15 @@ export default function PhoneNumberForm({ setCurrentStep }: Props) {
         description: res.message
           ? res.message.title
             ? res.message.title
-            : "Something Went Wrong 1"
-          : "Something Went Wrong 2",
+            : "Something Went Wrong"
+          : "Something Went Wrong",
       });
       return;
     }
     if (!res.user.phoneNumber || !res.user.id) {
       toast({
         variant: "destructive",
-        description: "Something Went Wrong 3",
+        description: "Something Went Wrong",
       });
       return;
     }
@@ -106,7 +106,7 @@ export default function PhoneNumberForm({ setCurrentStep }: Props) {
     } else {
       toast({
         variant: "destructive",
-        description: "Something Went Wrong 5",
+        description: "Something Went Wrong",
       });
     }
   }
@@ -129,6 +129,9 @@ export default function PhoneNumberForm({ setCurrentStep }: Props) {
                   {...field}
                 />
               </FormControl>
+              <FormDescription className="text-white font-bold">
+                Enter without ' 0 '
+              </FormDescription>
               <FormMessage />
               {showCountDown && expireTIme && (
                 <CountDown

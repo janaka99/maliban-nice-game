@@ -40,11 +40,13 @@ export default function UserImages({}: Props) {
       return null;
     }
     const images = await fetchImagesAction(userId);
-    if (images) {
+    if (images && images.length > 0) {
       console.log(images);
       setImages(images);
-      setLargeImage(images[0].url);
+      setLargeImage(images[images.length - 1].url);
       setLeftChanes(getLeftChances(images.length));
+      setIsLoading(false);
+    } else {
       setIsLoading(false);
     }
   };
@@ -58,31 +60,50 @@ export default function UserImages({}: Props) {
     fetchImages();
   }, [userId]);
 
-  if (isLoading || !largeImage) {
+  if (isLoading) {
     return (
       <div className="w-screen h-screen flex justify-center items-center">
         <LoaderCircle className="animate-spin text-white" />
       </div>
     );
   }
+  if (!images || images.length <= 0) {
+    return (
+      <div className="w-screen h-screen flex justify-center items-center">
+        <button
+          onClick={() => {
+            goBack();
+          }}
+          className="text-sm text-white font-semibold"
+        >
+          Generate Image
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full min-h-[100svh] flex gap-4 flex-col justify-center items-center py-20">
-      <div className="relative">
-        <img
-          src={largeImage}
-          alt=""
-          className="max-w-[280px] w-full aspect-[9/16] object-cover rounded-xl large-image-shadow "
-        />
-      </div>
-      <Button
-        onClick={() => {
-          handleShare(largeImage);
-        }}
-        className="bg-malibanYellow hover:bg-yellow-400 text-malibanBlue uppercase font-black tracking-widest italic"
-      >
-        Share
-      </Button>
+      {largeImage && (
+        <>
+          <div className="relative">
+            <img
+              src={largeImage}
+              alt=""
+              className="max-w-[280px] w-full aspect-[9/16] object-cover rounded-xl large-image-shadow "
+            />
+          </div>
+
+          <Button
+            onClick={() => {
+              handleShare(largeImage);
+            }}
+            className="bg-malibanYellow hover:bg-yellow-400 text-malibanBlue uppercase font-black tracking-widest italic"
+          >
+            Share
+          </Button>
+        </>
+      )}
       <button
         onClick={() => {
           if (leftChanes >= 3) {

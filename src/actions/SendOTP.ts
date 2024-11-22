@@ -60,13 +60,6 @@ export const validatePhoneNumber = async (
       };
     }
 
-    await sendSms({
-      to: "767661535",
-      from: "Maliban Nice",
-      body: "123456",
-    });
-
-    return;
     // check if user already verified
     if (!userExists.phoneNumberVerified) {
       console.log("came here 1");
@@ -101,7 +94,7 @@ export const validatePhoneNumber = async (
             },
             isVerified: false,
             message: {
-              title: `Please try again after ${leftMin} minutes and ${leftSec} seconds`,
+              title: `Please try again after  ${leftSec} seconds`,
             },
           };
         } else {
@@ -196,7 +189,7 @@ export const validatePhoneNumber = async (
 async function createUserWithOtp(phoneNumber: string) {
   // TODO - generate otp
   const otp = generateOtp();
-  const otpExpire = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes from now
+  const otpExpire = new Date(Date.now() + 30 * 1000); // 10 minutes from now
   await sendSms({
     to: phoneNumber,
     from: "Maliban Nice",
@@ -220,7 +213,7 @@ async function createUserWithOtp(phoneNumber: string) {
 async function updateExtingUserAndSendOTP(userId: string, phoneNumber: string) {
   // TODO - generate otp
   const otp = generateOtp();
-  const otpExpire = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes from now
+  const otpExpire = new Date(Date.now() + 30 * 1000); // 10 minutes from now
   await sendSms({
     to: phoneNumber,
     from: "Maliban Nice",
@@ -251,15 +244,6 @@ function generateOtp() {
 
 async function sendSms({ to, from, body, statusCallback }: any) {
   try {
-    const apiUrl = "https://api.sms160.io/v1/messages";
-
-    // Prepare authentication credentials
-    // const credentials = Buffer.from(
-    //   `${Config.SMS160_PROJECT_ID}:${Config.SMS160_API_KEY}`
-    // ).toString("base64");
-    // console.log(Config.SMS160_PROJECT_ID);
-    // console.log(Config.SMS160_API_KEY);
-
     const credentials = Buffer.from(
       `${Config.SMS160_PROJECT_ID}:${Config.SMS160_API_KEY}`
     ).toString("base64");
@@ -270,20 +254,28 @@ async function sendSms({ to, from, body, statusCallback }: any) {
 
     // Set headers
     const headers = {
-      Authentication: `Basic ${credentials}`,
+      Authorization: `Basic ${credentials}`,
       "Content-Type": "application/x-www-form-urlencoded",
     };
 
     // Prepare request data
-    const formData = new URLSearchParams({
+    const formData = {
       to: `+94${to}`,
-      from: from,
+      from: Config.API_PROJECT_NAME,
       body: body,
-    });
-    // Make API request
-    const response = await axios.post(apiUrl, formData, {
-      headers,
-    });
+    };
+
+    console.log(credentials);
+    // console.log(credentials)
+    // console.log(credentials)
+    // Make API request/
+    const response = await axios.post(
+      "https://api.sms160.io/v1/messages",
+      formData,
+      {
+        headers,
+      }
+    );
 
     // Return API response
     return response.data;
