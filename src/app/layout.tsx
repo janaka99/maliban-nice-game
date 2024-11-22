@@ -46,8 +46,11 @@ export default function RootLayout({
           </UserProvider>
         </LanguageProvider>
         <Toaster />
-        <p className="text-center text-xs text-white font-bold py-10">
-          AI Solutions By Artslab Creatives
+        <p className="text-center text-[9px] text-white  pt-10 pb-2">
+          AI Solution By{" "}
+          <a href="https://www.linkedin.com/company/arts-lab-creatives">
+            Artslab Creatives
+          </a>
         </p>
       </body>
     </html>

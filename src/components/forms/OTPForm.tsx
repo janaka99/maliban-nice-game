@@ -71,6 +71,13 @@ export default function OTPForm({}: Props) {
         onSubmit={otpForm.handleSubmit(onOtpSubmit)}
         className="space-y-8 w-[300px]"
       >
+        <div className="-mt-10 w-full px-5">
+          <img
+            src="nice_meter.png"
+            alt=""
+            className="object-contain w-full max-w-[200px] mx-auto"
+          />
+        </div>
         <FormField
           control={otpForm.control}
           name="otp"

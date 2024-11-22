@@ -127,8 +127,10 @@ export default function ImageSubmissionForm({}: Props) {
           description: res.message.title,
         });
         break;
-
       default:
+        toast({
+          description: "Something Went Wrong",
+        });
         break;
     }
   };

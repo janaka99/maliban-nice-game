@@ -7,7 +7,8 @@ import { Button } from "./ui/button";
 import { toast } from "@/hooks/use-toast";
 import { useMultistepFormContext } from "@/context/steps/multistepsContext";
 import { LoaderCircle } from "lucide-react";
-
+import { FaFacebookF } from "react-icons/fa";
+import { FaInstagram } from "react-icons/fa";
 type Props = {};
 
 export default function UserImages({}: Props) {
@@ -16,54 +17,28 @@ export default function UserImages({}: Props) {
   const [images, setImages] = useState<any>([]);
   const [largeImage, setLargeImage] = useState<string | null>(null);
   const [leftChanes, setLeftChanes] = useState(0);
+  const [imageType, setImageType] = useState(null);
 
   const { step, goNext, goBack, goTo, currentStepIndex } =
     useMultistepFormContext();
 
   const handleShare = async (imgUrl: string) => {
-    const imageUrl = imgUrl; // Replace with your image URL
-
-    const response = await fetch(imageUrl);
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch image");
+    if (!imgUrl) {
+      return;
     }
+    const anchor = document.createElement("a");
 
-    // Convert response into an ArrayBuffer
-    const arrayBuffer = await response.arrayBuffer();
+    anchor.href = imgUrl;
 
-    // Convert ArrayBuffer into a Buffer
-    const buffer = Buffer.from(arrayBuffer);
+    const generateRandomString = (length = 12) => {
+      return Math.random()
+        .toString(36)
+        .substring(2, 2 + length);
+    };
 
-    // Create Blob from Buffer
-    const blob = new Blob([buffer], { type: "image/jpeg" });
-
-    // Create a temporary URL for the Blob
-    const imageUrl2 = URL.createObjectURL(blob);
-    // / Use the Web Share API for sharing (mobile support)
-    // try {
-    //   await navigator.share({
-    //     title: "Check out this image!",
-    //     text: "I found this amazing image!",
-    //     url: imageUrl2, // Share the temporary image URL
-    //   });
-    //   console.log("Image shared successfully!");
-    // } catch (err) {
-    //   console.error("Error sharing image:", err);
-    // }
-
-    //////////////////////
-
-    // // Check if Web Share API is supported
-    // if (navigator.share) {
-    //   try {
-    //     await navigator.share({
-    //       url: imageUrl, // URL to share
-    //     });
-    //   } catch (error) {}
-    // } else {
-    //   alert("Sharing is not supported on this device or browser.");
-    // }
+    anchor.download = generateRandomString() + ".jpg";
+    // Trigger a click event to initiate the download
+    anchor.click();
   };
 
   const fetchImages = async () => {
@@ -125,14 +100,38 @@ export default function UserImages({}: Props) {
             />
           </div>
 
-          <Button
+          {/* <Button
             onClick={() => {
               handleShare(largeImage);
             }}
             className="bg-malibanYellow hover:bg-yellow-400 text-malibanBlue uppercase font-black tracking-widest italic"
           >
-            Share
-          </Button>
+            Download
+          </Button> */}
+          <p className="text-xs text-center text-white font-semibold">
+            Tap and hold to save image
+          </p>
+          <div className="flex flex-col">
+            <div className="">
+              <p className="text-base pb-1 text-center text-white font-semibold">
+                Share to
+              </p>
+            </div>
+            <div className="flex justify-center items-center gap-5">
+              <a
+                href="https://www.facebook.com/"
+                className="border-2 border-white rounded-full w-10 aspect-square flex justify-center items-center "
+              >
+                <FaFacebookF size={25} className="text-white" />
+              </a>
+              <a
+                href="https://www.instagram.com/"
+                className="border-2 border-white  rounded-full w-10 aspect-square flex justify-center items-center "
+              >
+                <FaInstagram size={25} className="text-white" />
+              </a>
+            </div>
+          </div>
         </>
       )}
       <button
@@ -165,3 +164,49 @@ export default function UserImages({}: Props) {
     </div>
   );
 }
+
+// const handleShare = async (imgUrl: string) => {
+//   const imageUrl = imgUrl; // Replace with your image URL
+
+//   const response = await fetch(imageUrl);
+
+//   if (!response.ok) {
+//     throw new Error("Failed to fetch image");
+//   }
+
+//   // Convert response into an ArrayBuffer
+//   const arrayBuffer = await response.arrayBuffer();
+
+//   // Convert ArrayBuffer into a Buffer
+//   const buffer = Buffer.from(arrayBuffer);
+
+//   // Create Blob from Buffer
+//   const blob = new Blob([buffer], { type: "image/jpeg" });
+
+//   // Create a temporary URL for the Blob
+//   const imageUrl2 = URL.createObjectURL(blob);
+//   // / Use the Web Share API for sharing (mobile support)
+//   // try {
+//   //   await navigator.share({
+//   //     title: "Check out this image!",
+//   //     text: "I found this amazing image!",
+//   //     url: imageUrl2, // Share the temporary image URL
+//   //   });
+//   //   console.log("Image shared successfully!");
+//   // } catch (err) {
+//   //   console.error("Error sharing image:", err);
+//   // }
+
+//   //////////////////////
+
+//   // // Check if Web Share API is supported
+//   // if (navigator.share) {
+//   //   try {
+//   //     await navigator.share({
+//   //       url: imageUrl, // URL to share
+//   //     });
+//   //   } catch (error) {}
+//   // } else {
+//   //   alert("Sharing is not supported on this device or browser.");
+//   // }
+// };

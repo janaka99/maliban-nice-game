@@ -113,48 +113,57 @@ export default function PhoneNumberForm({ setCurrentStep }: Props) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onPhoneSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="phoneNumber"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-white text-base font-semibold">
-                Phone Number
-              </FormLabel>
-              <FormControl>
-                <Input
-                  className="border-white text-base font-semibold focus:outline-none focus-visible:ring-white text-white min-w-[200px]"
-                  placeholder="000000000"
-                  {...field}
-                />
-              </FormControl>
-              <FormDescription className="text-white font-bold">
-                Enter without ' 0 '
-              </FormDescription>
-              <FormMessage />
-              {showCountDown && expireTIme && (
-                <CountDown
-                  expireTime={expireTIme}
-                  setCurrentStep={setCurrentStep}
-                />
-              )}
-            </FormItem>
-          )}
-        />
+      <div className="">
+        <div className="-mt-10 w-full px-5">
+          <img
+            src="nice_meter.png"
+            alt=""
+            className="object-contain w-full max-w-[200px] mx-auto"
+          />
+        </div>
+        <form onSubmit={form.handleSubmit(onPhoneSubmit)} className="space-y-8">
+          <FormField
+            control={form.control}
+            name="phoneNumber"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-white text-base font-semibold">
+                  Phone Number
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    className="border-white text-base font-semibold focus:outline-none focus-visible:ring-white text-white min-w-[200px] custom-style custom-style"
+                    placeholder="7xxxxxx"
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription className="text-white font-bold">
+                  Enter without ' 0 '
+                </FormDescription>
+                <FormMessage />
+                {showCountDown && expireTIme && (
+                  <CountDown
+                    expireTime={expireTIme}
+                    setCurrentStep={setCurrentStep}
+                  />
+                )}
+              </FormItem>
+            )}
+          />
 
-        <SubmitButton isLoading={form.formState.isSubmitting} text="Verify" />
-      </form>
-      {!setFirstTIme && (
-        <Button
-          onClick={() => {
-            setCurrentStep("otp");
-          }}
-          className=""
-        >
-          Add OTP
-        </Button>
-      )}
+          <SubmitButton isLoading={form.formState.isSubmitting} text="Verify" />
+        </form>
+        {!setFirstTIme && (
+          <Button
+            onClick={() => {
+              setCurrentStep("otp");
+            }}
+            className=""
+          >
+            Add OTP
+          </Button>
+        )}
+      </div>
     </Form>
   );
 }

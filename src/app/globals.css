@@ -86,6 +86,22 @@ body {
     color: #ffffffdb;
   }
 
+  .custom-style::-webkit-input-placeholder {
+    color: #ffffffdb;
+  }
+
+  .custom-style::-moz-placeholder {
+    color: #ffffffdb;
+  }
+
+  .custom-style:-ms-input-placeholder {
+    color: #ffffffdb;
+  }
+
+  .custom-style::-ms-input-placeholder {
+    color: #ffffffdb;
+  }
+
   .large-image-shadow {
     -webkit-box-shadow: 0px 0px 13px 6px rgba(0, 252, 59, 1);
     -moz-box-shadow: 0px 0px 13px 6px rgba(0, 252, 59, 1);
