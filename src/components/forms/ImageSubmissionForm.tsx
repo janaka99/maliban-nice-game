@@ -55,7 +55,13 @@ export default function ImageSubmissionForm({}: Props) {
   } = useMultistepFormContext();
 
   const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB in bytes
-  const VALID_FILE_TYPES = ["image/jpeg", "image/png", "image/webp"];
+  const VALID_FILE_TYPES = [
+    "image/jpeg",
+    "image/png",
+    "image/webp",
+    "image/heic",
+    "image/heif",
+  ];
 
   const generatePreviewURL = (file: File) => {
     if (!VALID_FILE_TYPES.includes(file.type)) {
@@ -265,8 +271,14 @@ export default function ImageSubmissionForm({}: Props) {
               disabled={true}
             />
           )}
+          <button
+            type="button"
+            className="text-xs mb-[-15px] text-white font-bold border-y-secondary-foreground"
+            onClick={goNext}
+          >
+            See generated Images
+          </button>
         </form>
-        {/* <Button onClick={goNext}>See generated Images</Button> */}
       </Form>
     </div>
   );

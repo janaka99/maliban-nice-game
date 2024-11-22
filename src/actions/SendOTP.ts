@@ -1,7 +1,9 @@
 "use server";
+import { Config } from "@/config";
 import { prisma } from "@/lib/prisma/index";
 
 import { formSchema, PhoneNUmberForm } from "@/schema/multistepformschema";
+import axios from "axios";
 
 import * as z from "zod";
 
@@ -25,6 +27,7 @@ export const validatePhoneNumber = async (
         phoneNumber: phoneNumber,
       },
     });
+
     if (!userExists) {
       const newUser = await createUserWithOtp(phoneNumber);
       if (!newUser || !newUser.success) {
@@ -42,6 +45,7 @@ export const validatePhoneNumber = async (
         otp: {
           expire: newUser.user?.otpExpire,
           sent: true,
+          firstTime: true,
         },
         user: {
           phoneNumber: newUser.user?.phoneNumber,
@@ -50,9 +54,19 @@ export const validatePhoneNumber = async (
         },
         firstTime: true,
         isVerified: false,
+        message: {
+          title: `Successfully sent the OTP`,
+        },
       };
     }
 
+    await sendSms({
+      to: "767661535",
+      from: "Maliban Nice",
+      body: "123456",
+    });
+
+    return;
     // check if user already verified
     if (!userExists.phoneNumberVerified) {
       console.log("came here 1");
@@ -92,7 +106,10 @@ export const validatePhoneNumber = async (
           };
         } else {
           console.log("came here 5");
-          const res = await updateExtingUserAndSendOTP(userExists.id);
+          const res = await updateExtingUserAndSendOTP(
+            userExists.id,
+            phoneNumber
+          );
           console.log("came here 6");
           if (res.success) {
             return {
@@ -121,7 +138,10 @@ export const validatePhoneNumber = async (
           };
         }
       } else {
-        const res = await updateExtingUserAndSendOTP(userExists.id);
+        const res = await updateExtingUserAndSendOTP(
+          userExists.id,
+          phoneNumber
+        );
         console.log("came here 10");
         if (res.success) {
           console.log("came here 12");
@@ -177,7 +197,11 @@ async function createUserWithOtp(phoneNumber: string) {
   // TODO - generate otp
   const otp = generateOtp();
   const otpExpire = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes from now
-
+  await sendSms({
+    to: phoneNumber,
+    from: "Maliban Nice",
+    body: otp,
+  });
   try {
     const newUser = await prisma.user.create({
       data: {
@@ -193,10 +217,15 @@ async function createUserWithOtp(phoneNumber: string) {
   }
 }
 
-async function updateExtingUserAndSendOTP(userId: string) {
+async function updateExtingUserAndSendOTP(userId: string, phoneNumber: string) {
   // TODO - generate otp
   const otp = generateOtp();
   const otpExpire = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes from now
+  await sendSms({
+    to: phoneNumber,
+    from: "Maliban Nice",
+    body: otp,
+  });
 
   try {
     const updatedUser = await prisma.user.update({
@@ -218,4 +247,48 @@ async function updateExtingUserAndSendOTP(userId: string) {
 function generateOtp() {
   const otp = Math.floor(100000 + Math.random() * 900000); // Generates a random 6-digit number
   return otp.toString(); // Convert the number to a string
+}
+
+async function sendSms({ to, from, body, statusCallback }: any) {
+  try {
+    const apiUrl = "https://api.sms160.io/v1/messages";
+
+    // Prepare authentication credentials
+    // const credentials = Buffer.from(
+    //   `${Config.SMS160_PROJECT_ID}:${Config.SMS160_API_KEY}`
+    // ).toString("base64");
+    // console.log(Config.SMS160_PROJECT_ID);
+    // console.log(Config.SMS160_API_KEY);
+
+    const credentials = Buffer.from(
+      `${Config.SMS160_PROJECT_ID}:${Config.SMS160_API_KEY}`
+    ).toString("base64");
+
+    // const credentials = Buffer.from(
+    //   `pr_iiVnFQcE73G1WteBtCPBoHnu:live_iiVnFQcQEBAhG6kFXFvfEDaRmqtUYjDQXg64aCaWEdbTg4M3`
+    // ).toString("base64");
+
+    // Set headers
+    const headers = {
+      Authentication: `Basic ${credentials}`,
+      "Content-Type": "application/x-www-form-urlencoded",
+    };
+
+    // Prepare request data
+    const formData = new URLSearchParams({
+      to: `+94${to}`,
+      from: from,
+      body: body,
+    });
+    // Make API request
+    const response = await axios.post(apiUrl, formData, {
+      headers,
+    });
+
+    // Return API response
+    return response.data;
+  } catch (error) {
+    console.log("ssms erro ", error);
+    throw new Error("Failed to send SMS. Please try again.");
+  }
 }

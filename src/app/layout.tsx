@@ -41,12 +41,15 @@ export default function RootLayout({
       >
         <LanguageProvider>
           <UserProvider>
-            <MultistepFormProvider initialStepIndex={2}>
+            <MultistepFormProvider initialStepIndex={0}>
               {children}
             </MultistepFormProvider>
           </UserProvider>
         </LanguageProvider>
         <Toaster />
+        <p className="text-center text-xs text-white font-bold py-10">
+          AI Solutions By Artslab Creatives
+        </p>
       </body>
     </html>
   );

@@ -96,11 +96,36 @@ export const generateImageAction = async (
     // return;
     // Create FormData to pass binary images
     const formData = new FormData();
+    const menImages = [
+      path.join(process.cwd(), "public", "men1.jpeg"),
+      path.join(process.cwd(), "public", "men2.jpeg"),
+      path.join(process.cwd(), "public", "men3.jpeg"),
+      path.join(process.cwd(), "public", "men4.jpeg"),
+    ];
 
-    const imagePath = path.join(process.cwd(), "public", "male_banner2.jpeg");
-    const content = fs.readFileSync(imagePath);
+    const womenImages = [
+      path.join(process.cwd(), "public", "women1.jpeg"),
+      path.join(process.cwd(), "public", "women2.jpeg"),
+      path.join(process.cwd(), "public", "women3.jpeg"),
+      path.join(process.cwd(), "public", "women4.jpeg"),
+    ];
 
-    const targetBlob = new Blob([content], { type: "image/jpg" });
+    let content = null;
+
+    if (gender === "male") {
+      content = menImages[Math.floor(Math.random() * menImages.length)];
+    } else if (gender === "female") {
+      content = womenImages[Math.floor(Math.random() * womenImages.length)];
+    } else {
+      return {
+        type: "serverError",
+        message: {
+          title: "server Error",
+        },
+      };
+    }
+
+    const targetBlob = new Blob([content], { type: "image/jpeg" });
     const blob = new Blob([arrayBuffer], { type: image.type });
 
     formData.append("target_image", targetBlob, "target_image.jpg");

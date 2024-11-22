@@ -42,9 +42,14 @@ export const formSchema = z.object({
     )
     .refine(
       (file: File) =>
-        ["image/jpeg", "image/png", "image/jpg", "image/webp"].includes(
-          file?.type
-        ),
+        [
+          "image/jpeg",
+          "image/png",
+          "image/jpg",
+          "image/webp",
+          "image/heic",
+          "image/heif",
+        ].includes(file?.type),
       "Only JPG, JPEG, PNG, or WEBP formats are allowed"
     ),
   acceptTerms: z

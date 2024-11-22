@@ -95,11 +95,8 @@ export default function PhoneNumberForm({ setCurrentStep }: Props) {
     if (res.isVerified) {
       GoToImageGeneratePage();
     } else if (res.otp && res.otp.firstTime) {
-      console.log("clicked");
-      goNext();
       setCurrentStep("otp");
     } else if (res.otp && !res.otp.firstTime && res.otp.expire) {
-      console.log("clicked 2", res.otp);
       setShowCountDown(true);
       setExpireTIme(res.otp.expire);
       setFirstTIme(false);
