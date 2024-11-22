@@ -144,7 +144,7 @@ export default function ImageSubmissionForm({}: Props) {
       <Form {...imgForm}>
         <form
           onSubmit={imgForm.handleSubmit(onSubmit)}
-          className="space-y-6"
+          className="space-y-6 flex-grow flex flex-col  justify-center items-center"
           noValidate
         >
           <p className="text-sm italic text-yellow-400 font-semibold text-center max-w-[300px]">
@@ -175,7 +175,7 @@ export default function ImageSubmissionForm({}: Props) {
               <FormItem>
                 <FormControl>
                   <input
-                    className="bg-transparent w-full   text-base text-white text-centers px-2 outline-none py-2 border-malibanYellow border-2 rounded-3xl"
+                    className="bg-transparent w-full min-w-[270px]  text-base text-white text-centers px-2 outline-none py-2 border-malibanYellow border-2 rounded-3xl"
                     placeholder="NAME"
                     {...field}
                   />
@@ -195,7 +195,7 @@ export default function ImageSubmissionForm({}: Props) {
                     onValueChange={field.onChange}
                     defaultValue={field.value || ""}
                   >
-                    <SelectTrigger className="text-white border-2 text-base rounded-3xl border-malibanYellow focus:ring-0">
+                    <SelectTrigger className="text-white border-2 text-base rounded-3xl min-w-[270px] border-malibanYellow focus:ring-0">
                       <SelectValue
                         placeholder="Select Gender"
                         className="text-white focus:ring-0  py-2"
@@ -266,7 +266,7 @@ export default function ImageSubmissionForm({}: Props) {
             />
           )}
         </form>
-        <Button onClick={goNext}>See generated Images</Button>
+        {/* <Button onClick={goNext}>See generated Images</Button> */}
       </Form>
     </div>
   );

@@ -22,33 +22,15 @@ export default function Landing({ next }: Props) {
           className="object-contain w-full max-w-[400px] mx-auto"
         />
       </div>
-      <div className="flex gap-5">
-        <button
-          className="px-4 py-1 text-sm bg-transparent border-2 border-white text-white font-semibold rounded-lg italic"
-          onClick={() => {
-            setLanguage("sn");
-            goNext();
-          }}
-        >
-          Sinhala
-        </button>
+      <div className="flex justify-center items-center gap-5">
         <Button
           onClick={() => {
             setLanguage("en");
             goNext();
           }}
-          className="px-4 py-1 text-sm bg-transparent border-2 border-white text-white font-semibold rounded-lg italic"
+          className="bg-yellow-400 hover:bg-yellow-400 text-malibanBlue uppercase font-black tracking-widest italic  "
         >
-          English
-        </Button>
-        <Button
-          onClick={() => {
-            setLanguage("tm");
-            goNext();
-          }}
-          className="px-4 py-1 text-sm bg-transparent border-2 border-white text-white font-semibold rounded-lg italic"
-        >
-          Tamil
+          Start
         </Button>
       </div>
     </div>
