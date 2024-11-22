@@ -68,7 +68,7 @@ export const validatePhoneNumber = async (
         // navigate to image generate page
         const currentTime = new Date();
         const verificationExpirationTime = new Date(userExists.otpExpire);
-        const expiryDuration = 10 * 60 * 1000;
+        const expiryDuration = 2 * 60 * 1000;
         // Calculate the time difference in milliseconds
         const timeDifference =
           verificationExpirationTime.getTime() - currentTime.getTime();
@@ -189,7 +189,7 @@ export const validatePhoneNumber = async (
 async function createUserWithOtp(phoneNumber: string) {
   // TODO - generate otp
   const otp = generateOtp();
-  const otpExpire = new Date(Date.now() + 30 * 1000); // 10 minutes from now
+  const otpExpire = new Date(Date.now() + 2 * 60 * 1000); // 10 minutes from now
   await sendSms({
     to: phoneNumber,
     from: "Maliban Nice",
@@ -213,7 +213,7 @@ async function createUserWithOtp(phoneNumber: string) {
 async function updateExtingUserAndSendOTP(userId: string, phoneNumber: string) {
   // TODO - generate otp
   const otp = generateOtp();
-  const otpExpire = new Date(Date.now() + 30 * 1000); // 10 minutes from now
+  const otpExpire = new Date(Date.now() + 2 * 60 * 1000); // 10 minutes from now
   await sendSms({
     to: phoneNumber,
     from: "Maliban Nice",

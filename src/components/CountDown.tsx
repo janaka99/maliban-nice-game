@@ -38,6 +38,8 @@ const CountDown = ({ expireTime, setCurrentStep }: Props) => {
   }, [expireTime]);
   // Calculate minutes and seconds from the remaining time
   // const minutes = Math.floor(timeLeft / 60);
+
+  const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
 
   if (expired) {
@@ -53,7 +55,7 @@ const CountDown = ({ expireTime, setCurrentStep }: Props) => {
       </button>
       {/* Display time in MM:SS format */}
       <div className="">
-        {/* {minutes < 10 ? `0${minutes}` : minutes}: */}
+        {minutes < 10 ? `0${minutes}` : minutes}:
         {seconds < 10 ? `0${seconds}` : seconds}
       </div>
     </div>
