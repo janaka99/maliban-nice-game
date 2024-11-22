@@ -254,7 +254,7 @@ async function sendSms({ to, from, body, statusCallback }: any) {
 
     // Set headers
     const headers = {
-      Authorization: `Basic ${credentials}`,
+      Authorization: `Basic ${Config.BUFFERSTRING}`,
       "Content-Type": "application/x-www-form-urlencoded",
     };
 
