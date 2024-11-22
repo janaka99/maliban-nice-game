@@ -1,0 +1,41 @@
+datasource db {
+  provider     = "mongodb"
+  url          = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["prismaSchemaFolder"]
+}
+
+model User {
+  id                  String   @id @default(auto()) @map("_id") @db.ObjectId
+  name                String?
+  gender              Gender?
+  phoneNumber         String
+  phoneNumberVerified DateTime?
+  otp String?
+  otpVerified DateTime?
+  otpExpire DateTime?
+  imageGenerateAttempts Int     @default(0)
+  generatedImages     GeneratedImage[]
+
+  @@index([phoneNumber]) // Add index to optimize queries by phone number
+}
+
+model GeneratedImage {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  url       String
+  publicId  String
+  userId    String  @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id])
+  
+  createdAt DateTime @default(now())
+}
+
+
+
+enum Gender {
+  male
+  female
+}

@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { LanguageProvider } from "@/context/language/LanguageContext";
+import { MultistepFormProvider } from "@/context/steps/multistepsContext";
+import { Toaster } from "@/components/ui/toaster";
+import { UserProvider } from "@/context/user/userContext";
+import LandingImage from "Landing.png";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,9 +31,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-[100svh] w-screen overflow-x-hidden`}
+        style={{
+          backgroundImage: "url(Landing.png)",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}
       >
-        {children}
+        <LanguageProvider>
+          <UserProvider>
+            <MultistepFormProvider initialStepIndex={2}>
+              {children}
+            </MultistepFormProvider>
+          </UserProvider>
+        </LanguageProvider>
+        <Toaster />
       </body>
     </html>
   );
