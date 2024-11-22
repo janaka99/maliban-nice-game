@@ -102,20 +102,34 @@ export const generateImageAction = async (
     //   path.join(process.cwd(), "public", "women4.jpeg"),
     // ];
 
-    const menImages = ["/men1.jpeg", "/men2.jpeg", "/men3.jpeg", "/men4.jpeg"];
-
-    const womenImages = [
-      "/women1.jpeg",
-      "/women2.jpeg",
-      "/women3.jpeg",
-      "/women4.jpeg",
+    const meen = [
+      "https://res.cloudinary.com/janaka99/image/upload/v1732275284/men1_brkadj.jpg",
+      "https://res.cloudinary.com/janaka99/image/upload/v1732275284/men2_wgf9sh.jpg",
+      "https://res.cloudinary.com/janaka99/image/upload/v1732275283/men4_ffwteg.jpg",
+      "https://res.cloudinary.com/janaka99/image/upload/v1732275283/men3_uwsbvk.jpg",
     ];
+
+    const girls = [
+      "https://res.cloudinary.com/janaka99/image/upload/v1732275283/women2_yxw9b3.jpg",
+      "https://res.cloudinary.com/janaka99/image/upload/v1732275283/women1_grpj3i.jpg",
+      "https://res.cloudinary.com/janaka99/image/upload/v1732275283/women4_kvpvth.jpg",
+      "https://res.cloudinary.com/janaka99/image/upload/v1732275283/women3_u1wbgs.jpg",
+    ];
+
+    // const menImages = ["/men1.jpeg", "/men2.jpeg", "/men3.jpeg", "/men4.jpeg"];
+
+    // const womenImages = [
+    //   "/women1.jpeg",
+    //   "/women2.jpeg",
+    //   "/women3.jpeg",
+    //   "/women4.jpeg",
+    // ];
 
     let content = null;
     if (gender === "male") {
-      content = menImages[Math.floor(Math.random() * menImages.length)];
+      content = meen[Math.floor(Math.random() * meen.length)];
     } else if (gender === "female") {
-      content = womenImages[Math.floor(Math.random() * womenImages.length)];
+      content = girls[Math.floor(Math.random() * girls.length)];
     } else {
       return {
         type: "serverError",
@@ -124,16 +138,27 @@ export const generateImageAction = async (
         },
       };
     }
+    const response2 = await fetch(content);
+
+    if (!response2.ok) {
+      throw new Error("Failed to fetch image");
+    }
+
+    // Convert the response into a buffer
+    const buffer = await response2.arrayBuffer();
+
+    // Create a Blob from the buffer
+    const blob2 = new Blob([buffer], { type: "image/jpg" });
 
     // Read the file content as a buffer
-    const fileBuffer = fs.readFileSync(content);
+    // const fileBuffer = fs.readFileSync(content);
 
-    const targetBlob = new Blob([fileBuffer], { type: "image/jpeg" });
+    const targetBlob = new Blob([blob2], { type: "image/jpeg" });
+    console.log(targetBlob, blob2);
+    formData.append("target_image", blob2, "target_image.jpg");
+
     const blob = new Blob([arrayBuffer], { type: image.type });
-    console.log(targetBlob, blob);
-    formData.append("target_image", targetBlob, "target_image.jpg");
     formData.append("swap_image", blob, "swap_image.jpg");
-
     // Call the Face Swap API to create a jobv
     const createJobResponse = await axios.post(CREATE_JOB_URL, formData, {
       headers: {
