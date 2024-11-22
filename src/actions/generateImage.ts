@@ -88,18 +88,27 @@ export const generateImageAction = async (
     // Create FormData to pass binary images
 
     const formData = new FormData();
-    const menImages = [
-      path.join(process.cwd(), "public", "men1.jpeg"),
-      path.join(process.cwd(), "public", "men2.jpeg"),
-      path.join(process.cwd(), "public", "men3.jpeg"),
-      path.join(process.cwd(), "public", "men4.jpeg"),
-    ];
+    // const menImages = [
+    //   path.join(process.cwd(), "public", "men1.jpeg"),
+    //   path.join(process.cwd(), "public", "men2.jpeg"),
+    //   path.join(process.cwd(), "public", "men3.jpeg"),
+    //   path.join(process.cwd(), "public", "men4.jpeg"),
+    // ];
+
+    // const womenImages = [
+    //   path.join(process.cwd(), "public", "women1.jpeg"),
+    //   path.join(process.cwd(), "public", "women2.jpeg"),
+    //   path.join(process.cwd(), "public", "women3.jpeg"),
+    //   path.join(process.cwd(), "public", "women4.jpeg"),
+    // ];
+
+    const menImages = ["/men1.jpeg", "/men2.jpeg", "/men3.jpeg", "/men4.jpeg"];
 
     const womenImages = [
-      path.join(process.cwd(), "public", "women1.jpeg"),
-      path.join(process.cwd(), "public", "women2.jpeg"),
-      path.join(process.cwd(), "public", "women3.jpeg"),
-      path.join(process.cwd(), "public", "women4.jpeg"),
+      "/women1.jpeg",
+      "/women2.jpeg",
+      "/women3.jpeg",
+      "/women4.jpeg",
     ];
 
     let content = null;

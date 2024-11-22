@@ -244,10 +244,6 @@ export default function ImageSubmissionForm({}: Props) {
                       <SheetContent>
                         <SheetHeader>
                           <SheetTitle>Terms & Conditions</SheetTitle>
-                          <SheetDescription>
-                            Make changes to your profile here. Click save when
-                            you're done.
-                          </SheetDescription>
                         </SheetHeader>
                         <div className="text-xs flex flex-col gap-2 text-start overflow-y-scroll h-full scroll-auto pb-14">
                           <h1>
