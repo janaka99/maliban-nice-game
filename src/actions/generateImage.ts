@@ -179,7 +179,7 @@ export const generateImageAction = async (
 
     const pollJobStatus = async (
       jobId: string,
-      interval = 2000
+      interval = 100
     ): Promise<string> => {
       while (true) {
         const fetchJobResponse = await axios.get(FETCH_JOB_URL(jobId), {

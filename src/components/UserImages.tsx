@@ -23,16 +23,47 @@ export default function UserImages({}: Props) {
   const handleShare = async (imgUrl: string) => {
     const imageUrl = imgUrl; // Replace with your image URL
 
-    // Check if Web Share API is supported
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          url: imageUrl, // URL to share
-        });
-      } catch (error) {}
-    } else {
-      alert("Sharing is not supported on this device or browser.");
+    const response = await fetch(imageUrl);
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch image");
     }
+
+    // Convert response into an ArrayBuffer
+    const arrayBuffer = await response.arrayBuffer();
+
+    // Convert ArrayBuffer into a Buffer
+    const buffer = Buffer.from(arrayBuffer);
+
+    // Create Blob from Buffer
+    const blob = new Blob([buffer], { type: "image/jpeg" });
+
+    // Create a temporary URL for the Blob
+    const imageUrl2 = URL.createObjectURL(blob);
+    // / Use the Web Share API for sharing (mobile support)
+    // try {
+    //   await navigator.share({
+    //     title: "Check out this image!",
+    //     text: "I found this amazing image!",
+    //     url: imageUrl2, // Share the temporary image URL
+    //   });
+    //   console.log("Image shared successfully!");
+    // } catch (err) {
+    //   console.error("Error sharing image:", err);
+    // }
+
+    //////////////////////
+
+    // // Check if Web Share API is supported
+    // if (navigator.share) {
+    //   try {
+    //     await navigator.share({
+    //       url: imageUrl, // URL to share
+    //     });
+    //   } catch (error) {}
+    // } else {
+    //   alert("Sharing is not supported on this device or browser.");
+    // }
   };
 
   const fetchImages = async () => {
