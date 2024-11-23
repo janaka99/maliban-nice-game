@@ -116,33 +116,33 @@ export const generateImageAction = async (
     //   "https://res.cloudinary.com/janaka99/image/upload/v1732275283/women3_u1wbgs.jpg",
     // ];
 
-    // const meen = [
-    //   "https://res.cloudinary.com/janaka99/image/upload/v1732369717/Maliban_Nice_Meter-App-Images-100B_tzrpwm.png",
-    //   "https://res.cloudinary.com/janaka99/image/upload/v1732369710/Maliban_Nice_Meter-App-Images-50B_odzcgp.png",
-    //   "https://res.cloudinary.com/janaka99/image/upload/v1732369706/Maliban_Nice_Meter-App-Images-25B_ipfcuw.png",
-    //   "https://res.cloudinary.com/janaka99/image/upload/v1732369703/Maliban_Nice_Meter-App-Images-200B_gmiiju.png",
-    // ];
-
-    // const girls = [
-    //   "https://res.cloudinary.com/janaka99/image/upload/v1732369717/Maliban_Nice_Meter-App-Images-100G_iqldgo.png",
-    //   "https://res.cloudinary.com/janaka99/image/upload/v1732369707/Maliban_Nice_Meter-App-Images-200G_snvro6.png",
-    //   "https://res.cloudinary.com/janaka99/image/upload/v1732369702/Maliban_Nice_Meter-App-Images-50G_br7sp3.png",
-    //   "https://res.cloudinary.com/janaka99/image/upload/v1732369702/Maliban_Nice_Meter-App-Images-25G_yfpwtr.png",
-    // ];
-
     const meen = [
-      "https://res.cloudinary.com/janaka99/image/upload/v1732373061/WhatsApp_Image_2024-11-23_at_20.10.58_nhvsvt.jpg",
-      "https://res.cloudinary.com/janaka99/image/upload/v1732373061/WhatsApp_Image_2024-11-23_at_20.10.59_3_wxxs3p.jpg",
-      "https://res.cloudinary.com/janaka99/image/upload/v1732373061/WhatsApp_Image_2024-11-23_at_20.11.00_1_s8r1rx.jpg",
-      "https://res.cloudinary.com/janaka99/image/upload/v1732373060/WhatsApp_Image_2024-11-23_at_20.10.59_1_cuthu9.jpg",
+      "https://res.cloudinary.com/janaka99/image/upload/v1732369717/Maliban_Nice_Meter-App-Images-100B_tzrpwm.png",
+      "https://res.cloudinary.com/janaka99/image/upload/v1732369710/Maliban_Nice_Meter-App-Images-50B_odzcgp.png",
+      "https://res.cloudinary.com/janaka99/image/upload/v1732369706/Maliban_Nice_Meter-App-Images-25B_ipfcuw.png",
+      "https://res.cloudinary.com/janaka99/image/upload/v1732369703/Maliban_Nice_Meter-App-Images-200B_gmiiju.png",
     ];
 
     const girls = [
-      "https://res.cloudinary.com/janaka99/image/upload/v1732373061/WhatsApp_Image_2024-11-23_at_20.10.59_knxiz6.jpg",
-      "https://res.cloudinary.com/janaka99/image/upload/v1732373061/WhatsApp_Image_2024-11-23_at_20.11.00_2_lvctz9.jpg",
-      "https://res.cloudinary.com/janaka99/image/upload/v1732373061/WhatsApp_Image_2024-11-23_at_20.11.00_xoqkh8.jpg",
-      "https://res.cloudinary.com/janaka99/image/upload/v1732373060/WhatsApp_Image_2024-11-23_at_20.10.59_2_m5ac7u.jpg",
+      "https://res.cloudinary.com/janaka99/image/upload/v1732369717/Maliban_Nice_Meter-App-Images-100G_iqldgo.png",
+      "https://res.cloudinary.com/janaka99/image/upload/v1732369707/Maliban_Nice_Meter-App-Images-200G_snvro6.png",
+      "https://res.cloudinary.com/janaka99/image/upload/v1732369702/Maliban_Nice_Meter-App-Images-50G_br7sp3.png",
+      "https://res.cloudinary.com/janaka99/image/upload/v1732369702/Maliban_Nice_Meter-App-Images-25G_yfpwtr.png",
     ];
+
+    // const meen = [
+    //   "https://res.cloudinary.com/janaka99/image/upload/v1732373061/WhatsApp_Image_2024-11-23_at_20.10.58_nhvsvt.jpg",
+    //   "https://res.cloudinary.com/janaka99/image/upload/v1732373061/WhatsApp_Image_2024-11-23_at_20.10.59_3_wxxs3p.jpg",
+    //   "https://res.cloudinary.com/janaka99/image/upload/v1732373061/WhatsApp_Image_2024-11-23_at_20.11.00_1_s8r1rx.jpg",
+    //   "https://res.cloudinary.com/janaka99/image/upload/v1732373060/WhatsApp_Image_2024-11-23_at_20.10.59_1_cuthu9.jpg",
+    // ];
+
+    // const girls = [
+    //   "https://res.cloudinary.com/janaka99/image/upload/v1732373061/WhatsApp_Image_2024-11-23_at_20.10.59_knxiz6.jpg",
+    //   "https://res.cloudinary.com/janaka99/image/upload/v1732373061/WhatsApp_Image_2024-11-23_at_20.11.00_2_lvctz9.jpg",
+    //   "https://res.cloudinary.com/janaka99/image/upload/v1732373061/WhatsApp_Image_2024-11-23_at_20.11.00_xoqkh8.jpg",
+    //   "https://res.cloudinary.com/janaka99/image/upload/v1732373060/WhatsApp_Image_2024-11-23_at_20.10.59_2_m5ac7u.jpg",
+    // ];
 
     // const menImages = ["/men1.jpeg", "/men2.jpeg", "/men3.jpeg", "/men4.jpeg"];
 
