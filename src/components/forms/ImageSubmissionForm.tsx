@@ -111,27 +111,34 @@ export default function ImageSubmissionForm({}: Props) {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    const res = await generateImageAction(values);
-    switch (res.type) {
-      case "validation":
-      case "serverError":
-      case "imageExceed":
-      case "generateError":
-        toast({
-          variant: "destructive",
-          description: res.message.title,
-        });
-      case "success":
-        goNext();
-        toast({
-          description: res.message.title,
-        });
-        break;
-      default:
-        toast({
-          description: "Something Went Wrong",
-        });
-        break;
+    try {
+      const res = await generateImageAction(values);
+      switch (res.type) {
+        case "validation":
+        case "serverError":
+        case "imageExceed":
+        case "generateError":
+          toast({
+            variant: "destructive",
+            description: res.message.title,
+          });
+        case "success":
+          goNext();
+          toast({
+            description: res.message.title,
+          });
+          break;
+        default:
+          toast({
+            description: "Something Went Wrong",
+          });
+          break;
+      }
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        description: "Server Time Out. Please Try again later",
+      });
     }
   };
 
