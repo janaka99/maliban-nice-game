@@ -22,29 +22,51 @@ export default function UserImages({}: Props) {
   const { step, goNext, goBack, goTo, currentStepIndex } =
     useMultistepFormContext();
 
-  const handleShare = async (imgUrl: string) => {
-    if (!imgUrl) {
-      return;
-    }
-    const anchor = document.createElement("a");
+  const [isMobile, setIsMobile] = useState(false);
 
-    anchor.href = imgUrl;
+  const isMobileDevice = () => {
+    if (typeof window === "undefined") return false;
 
-    const generateRandomString = (length = 12) => {
-      return Math.random()
-        .toString(36)
-        .substring(2, 2 + length);
-    };
-
-    anchor.download = generateRandomString() + ".jpg";
-    // Trigger a click event to initiate the download
-    anchor.click();
+    // Check for userAgent (supports older browsers as well)
+    const userAgent = navigator.userAgent || "";
+    return /iPhone|iPad|iPod|Android/i.test(userAgent);
   };
+
+  useEffect(() => {
+    setIsMobile(isMobileDevice());
+  }, []);
 
   const shareInstagram = (imageUrl: string) => {
     const encodedImageUrl = encodeURIComponent(imageUrl);
     const url = `instagram://library?AssetPath=${encodedImageUrl}`;
     window.open(url);
+  };
+
+  const handleDownload = async (imgUrl: string) => {
+    try {
+      // Replace with your Cloudinary image URL
+      const imageUrl = imgUrl;
+
+      // Fetch the image and convert it to a Blob
+      const response = await fetch(imageUrl);
+      if (!response.ok) {
+        throw new Error("Failed to fetch the image.");
+      }
+      const blob = await response.blob();
+
+      // Create a temporary link element to trigger the download
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "maliban_nice.jpg"; // Replace with your desired file name
+      document.body.appendChild(link);
+      link.click();
+
+      // Clean up
+      document.body.removeChild(link);
+      URL.revokeObjectURL(link.href);
+    } catch (error) {
+      console.log("Image download failed");
+    }
   };
 
   const fetchImages = async () => {
@@ -114,28 +136,50 @@ export default function UserImages({}: Props) {
           >
             Download
           </Button> */}
-          <p className="text-xs text-center text-white font-semibold">
-            Tap and hold to save image
-          </p>
+          <Button
+            onClick={() => handleDownload(largeImage)}
+            className="bg-yellow-400 hover:bg-yellow-400 text-malibanBlue uppercase font-black tracking-widest italic  "
+          >
+            Download
+          </Button>
           <div className="flex flex-col">
             <div className="">
               <p className="text-base pb-1 text-center text-white font-semibold">
                 Share to
               </p>
             </div>
+
             <div className="flex justify-center items-center gap-5">
-              <a
-                href="https://www.facebook.com/"
-                className="border-2 border-white rounded-full w-10 aspect-square flex justify-center items-center "
-              >
-                <FaFacebookF size={25} className="text-white" />
-              </a>
-              <a
-                href="https://www.instagram.com/"
-                className="border-2 border-white  rounded-full w-10 aspect-square flex justify-center items-center "
-              >
-                <FaInstagram size={25} className="text-white" />
-              </a>
+              {isMobile ? (
+                <>
+                  <button className="border-2 border-white rounded-full w-10 aspect-square flex justify-center items-center ">
+                    <FaFacebookF size={25} className="text-white" />
+                  </button>
+                  <button
+                    onClick={() => {
+                      shareInstagram(largeImage);
+                    }}
+                    className="border-2 border-white  rounded-full w-10 aspect-square flex justify-center items-center "
+                  >
+                    <FaInstagram size={25} className="text-white" />
+                  </button>
+                </>
+              ) : (
+                <>
+                  <a
+                    href="https://www.facebook.com/"
+                    className="border-2 border-white rounded-full w-10 aspect-square flex justify-center items-center "
+                  >
+                    <FaFacebookF size={25} className="text-white" />
+                  </a>
+                  <a
+                    href="https://www.instagram.com/"
+                    className="border-2 border-white  rounded-full w-10 aspect-square flex justify-center items-center "
+                  >
+                    <FaInstagram size={25} className="text-white" />
+                  </a>
+                </>
+              )}
             </div>
           </div>
         </>
