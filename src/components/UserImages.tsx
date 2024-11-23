@@ -9,6 +9,7 @@ import { useMultistepFormContext } from "@/context/steps/multistepsContext";
 import { LoaderCircle } from "lucide-react";
 import { FaFacebookF } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
+import { isMobile } from "react-device-detect";
 type Props = {};
 
 export default function UserImages({}: Props) {
@@ -22,7 +23,7 @@ export default function UserImages({}: Props) {
   const { step, goNext, goBack, goTo, currentStepIndex } =
     useMultistepFormContext();
 
-  const [isMobile, setIsMobile] = useState(false);
+  // const [isMobile, setIsMobile] = useState(false);
 
   const isMobileDevice = () => {
     if (typeof window === "undefined") return false;
@@ -32,14 +33,54 @@ export default function UserImages({}: Props) {
     return /iPhone|iPad|iPod|Android/i.test(userAgent);
   };
 
-  useEffect(() => {
-    setIsMobile(isMobileDevice());
-  }, []);
+  // useEffect(() => {
+  //   setIsMobile(isMobileDevice());
+  // }, []);
 
   const shareInstagram = (imageUrl: string) => {
     const encodedImageUrl = encodeURIComponent(imageUrl);
-    const url = `instagram://library?AssetPath=${encodedImageUrl}`;
-    window.open(url);
+    const instagramAppUrl = `instagram://library?AssetPath=${encodedImageUrl}`;
+    const instagramWebUrl = `https://www.instagram.com/create/style/?url=${encodedImageUrl}`;
+
+    if (isMobile) {
+      // Use deep link for mobile devices
+      window.location.href = instagramAppUrl;
+
+      setTimeout(() => {
+        // If Instagram app doesn't open, fall back to the web
+        if (document.hasFocus()) {
+          window.location.href = instagramWebUrl;
+        }
+      }, 2000);
+    } else {
+      // Open Instagram in the browser for non-mobile devices
+      window.open(instagramWebUrl, "_blank");
+    }
+  };
+
+  const shareFacebook = (imageUrl: string) => {
+    const encodedImageUrl = encodeURIComponent(imageUrl);
+
+    // Facebook Story deep link (for mobile)
+    const facebookAppUrl = `fb://story?source=${encodedImageUrl}`;
+
+    // Facebook web URL (for sharing a link to the image on Facebook Stories, fallback for desktop)
+    const facebookWebUrl = `https://www.facebook.com/stories/create/?url=${encodedImageUrl}`;
+
+    if (isMobile) {
+      // Use deep link for mobile devices (opens Facebook app)
+      window.location.href = facebookAppUrl;
+
+      setTimeout(() => {
+        // If Facebook app doesn't open, fall back to the web
+        if (document.hasFocus()) {
+          window.location.href = facebookWebUrl;
+        }
+      }, 2000);
+    } else {
+      // Open Facebook in the browser for non-mobile devices
+      window.open(facebookWebUrl, "_blank");
+    }
   };
 
   const handleDownload = async (imgUrl: string) => {
@@ -150,21 +191,26 @@ export default function UserImages({}: Props) {
             </div>
 
             <div className="flex justify-center items-center gap-5">
-              {isMobile ? (
-                <>
-                  <button className="border-2 border-white rounded-full w-10 aspect-square flex justify-center items-center ">
-                    <FaFacebookF size={25} className="text-white" />
-                  </button>
-                  <button
-                    onClick={() => {
-                      shareInstagram(largeImage);
-                    }}
-                    className="border-2 border-white  rounded-full w-10 aspect-square flex justify-center items-center "
-                  >
-                    <FaInstagram size={25} className="text-white" />
-                  </button>
-                </>
-              ) : (
+              {/* {isMobile ? ( */}
+              <>
+                <button
+                  onClick={() => {
+                    shareFacebook(largeImage);
+                  }}
+                  className="border-2 border-white rounded-full w-10 aspect-square flex justify-center items-center "
+                >
+                  <FaFacebookF size={25} className="text-white" />
+                </button>
+                <button
+                  onClick={() => {
+                    shareInstagram(largeImage);
+                  }}
+                  className="border-2 border-white  rounded-full w-10 aspect-square flex justify-center items-center "
+                >
+                  <FaInstagram size={25} className="text-white" />
+                </button>
+              </>
+              {/* ) : (
                 <>
                   <a
                     href="https://www.facebook.com/"
@@ -179,7 +225,7 @@ export default function UserImages({}: Props) {
                     <FaInstagram size={25} className="text-white" />
                   </a>
                 </>
-              )}
+              )} */}
             </div>
           </div>
         </>
