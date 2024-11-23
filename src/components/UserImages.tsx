@@ -39,8 +39,11 @@ export default function UserImages({}: Props) {
 
   const shareInstagram = (imageUrl: string) => {
     const encodedImageUrl = encodeURIComponent(imageUrl);
-    const instagramAppUrl = `instagram://library?AssetPath=${encodedImageUrl}`;
-    const instagramWebUrl = `https://www.instagram.com/create/style/?url=${encodedImageUrl}`;
+    // Instagram app deep link for Stories (on mobile)
+    const instagramAppUrl = `instagram://story?source=${encodedImageUrl}`;
+
+    // Instagram web URL to create a story (fallback for desktop)
+    const instagramWebUrl = `https://www.instagram.com/create/story/?url=${encodedImageUrl}`;
 
     if (isMobile) {
       // Use deep link for mobile devices
