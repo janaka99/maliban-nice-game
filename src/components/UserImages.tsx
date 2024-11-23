@@ -41,6 +41,12 @@ export default function UserImages({}: Props) {
     anchor.click();
   };
 
+  const shareInstagram = (imageUrl: string) => {
+    const encodedImageUrl = encodeURIComponent(imageUrl);
+    const url = `instagram://library?AssetPath=${encodedImageUrl}`;
+    window.open(url);
+  };
+
   const fetchImages = async () => {
     if (!userId) {
       return null;

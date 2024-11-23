@@ -102,18 +102,32 @@ export const generateImageAction = async (
     //   path.join(process.cwd(), "public", "women4.jpeg"),
     // ];
 
+    // const meen = [
+    //   "https://res.cloudinary.com/janaka99/image/upload/v1732275284/men1_brkadj.jpg",
+    //   "https://res.cloudinary.com/janaka99/image/upload/v1732275284/men2_wgf9sh.jpg",
+    //   "https://res.cloudinary.com/janaka99/image/upload/v1732275283/men4_ffwteg.jpg",
+    //   "https://res.cloudinary.com/janaka99/image/upload/v1732275283/men3_uwsbvk.jpg",
+    // ];
+
+    // const girls = [
+    //   "https://res.cloudinary.com/janaka99/image/upload/v1732275283/women2_yxw9b3.jpg",
+    //   "https://res.cloudinary.com/janaka99/image/upload/v1732275283/women1_grpj3i.jpg",
+    //   "https://res.cloudinary.com/janaka99/image/upload/v1732275283/women4_kvpvth.jpg",
+    //   "https://res.cloudinary.com/janaka99/image/upload/v1732275283/women3_u1wbgs.jpg",
+    // ];
+
     const meen = [
-      "https://res.cloudinary.com/janaka99/image/upload/v1732275284/men1_brkadj.jpg",
-      "https://res.cloudinary.com/janaka99/image/upload/v1732275284/men2_wgf9sh.jpg",
-      "https://res.cloudinary.com/janaka99/image/upload/v1732275283/men4_ffwteg.jpg",
-      "https://res.cloudinary.com/janaka99/image/upload/v1732275283/men3_uwsbvk.jpg",
+      "https://res.cloudinary.com/janaka99/image/upload/v1732369717/Maliban_Nice_Meter-App-Images-100B_tzrpwm.png",
+      "https://res.cloudinary.com/janaka99/image/upload/v1732369710/Maliban_Nice_Meter-App-Images-50B_odzcgp.png",
+      "https://res.cloudinary.com/janaka99/image/upload/v1732369706/Maliban_Nice_Meter-App-Images-25B_ipfcuw.png",
+      "https://res.cloudinary.com/janaka99/image/upload/v1732369703/Maliban_Nice_Meter-App-Images-200B_gmiiju.png",
     ];
 
     const girls = [
-      "https://res.cloudinary.com/janaka99/image/upload/v1732275283/women2_yxw9b3.jpg",
-      "https://res.cloudinary.com/janaka99/image/upload/v1732275283/women1_grpj3i.jpg",
-      "https://res.cloudinary.com/janaka99/image/upload/v1732275283/women4_kvpvth.jpg",
-      "https://res.cloudinary.com/janaka99/image/upload/v1732275283/women3_u1wbgs.jpg",
+      "https://res.cloudinary.com/janaka99/image/upload/v1732369717/Maliban_Nice_Meter-App-Images-100G_iqldgo.png",
+      "https://res.cloudinary.com/janaka99/image/upload/v1732369707/Maliban_Nice_Meter-App-Images-200G_snvro6.png",
+      "https://res.cloudinary.com/janaka99/image/upload/v1732369702/Maliban_Nice_Meter-App-Images-50G_br7sp3.png",
+      "https://res.cloudinary.com/janaka99/image/upload/v1732369702/Maliban_Nice_Meter-App-Images-25G_yfpwtr.png",
     ];
 
     // const menImages = ["/men1.jpeg", "/men2.jpeg", "/men3.jpeg", "/men4.jpeg"];
@@ -148,13 +162,13 @@ export const generateImageAction = async (
     const buffer = await response2.arrayBuffer();
 
     // Create a Blob from the buffer
-    const blob2 = new Blob([buffer], { type: "image/jpg" });
+    const blob2 = new Blob([buffer], { type: "image/png" });
 
     // Read the file content as a buffer
     // const fileBuffer = fs.readFileSync(content);
 
-    const targetBlob = new Blob([blob2], { type: "image/jpeg" });
-    console.log(targetBlob, blob2);
+    // const targetBlob = new Blob([blob2], { type: "image/png" });
+    // console.log(targetBlob, blob2);
     formData.append("target_image", blob2, "target_image.jpg");
 
     const blob = new Blob([arrayBuffer], { type: image.type });

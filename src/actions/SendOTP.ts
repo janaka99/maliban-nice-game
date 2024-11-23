@@ -265,7 +265,7 @@ async function sendSms({ to, from, body, statusCallback }: any) {
       body: body,
     };
 
-    console.log(credentials);
+    // console.log(credentials);
     // console.log(credentials)
     // console.log(credentials)
     // Make API request/
