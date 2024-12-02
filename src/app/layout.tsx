@@ -69,20 +69,23 @@ fbq('track', 'PageView');
           backgroundSize: "cover",
         }}
       >
-        <LanguageProvider>
+        <div className="w-screen h-screen flex justify-center items-center text-white">
+          Game is over!
+        </div>
+        {/* <LanguageProvider>
           <UserProvider>
             <MultistepFormProvider initialStepIndex={0}>
               {children}
             </MultistepFormProvider>
           </UserProvider>
         </LanguageProvider>
-        <Toaster />
-        <p className="text-center text-[9px] text-white  pt-10 pb-2">
+        <Toaster /> */}
+        {/* <p className="text-center text-[9px] text-white  pt-10 pb-2">
           AI Solution By{" "}
           <a href="https://www.linkedin.com/company/arts-lab-creatives">
             Artslab Creatives
           </a>
-        </p>
+        </p> */}
       </body>
     </html>
   );
