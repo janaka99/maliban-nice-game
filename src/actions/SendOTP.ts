@@ -248,10 +248,6 @@ async function sendSms({ to, from, body, statusCallback }: any) {
       `${Config.SMS160_PROJECT_ID}:${Config.SMS160_API_KEY}`
     ).toString("base64");
 
-    // const credentials = Buffer.from(
-    //   `pr_iiVnFQcE73G1WteBtCPBoHnu:live_iiVnFQcQEBAhG6kFXFvfEDaRmqtUYjDQXg64aCaWEdbTg4M3`
-    // ).toString("base64");
-
     // Set headers
     const headers = {
       Authorization: `Basic ${Config.BUFFERSTRING}`,
